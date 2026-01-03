@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.jp'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.1'
 description = 'Financial API for personal expense control, allowing users to record, view, and organize expenses.'
 
 java {
@@ -37,6 +37,8 @@ dependencies {
 	implementation 'org.flywaydb:flyway-database-postgresql'
 	implementation 'com.itextpdf:itextpdf:5.5.13.3'
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:3.0.1'
+	implementation 'org.mapstruct:mapstruct:1.6.3'
+	annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.3'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'org.postgresql:postgresql'
