@@ -1,3 +1,28 @@
+server:
+  port: ${SERVER_PORT:8080}
+  error:
+    include-stacktrace: never
+  servlet:
+    context-path: /finances-api
+
 spring:
   application:
     name: finances
+  web:
+    locale: en_US # Localidade a ser usada. Por padrão, essa localidade é substituída pelo cabeçalho "Accept-Language".
+    locale-resolver: accept-header # Defina como a localidade deve ser resolvida | Default Value: accept-header(no header accept-language da requisição) | other options: fixed, session, cookie
+  jackson:
+    locale: pt_BR # Define o padrão regional usado para formatações numéricas e de data.
+    time-zone: America/Sao_Paulo
+  messages:
+    basename: i18n.messages # O Spring vai procurar: src/main/resources/i18n/messages*.properties
+    encoding: UTF-8
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/db-finances}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:123}
+
+jwt:
+  secret: ${JWT_SECRET:123456789abcdef} # Chave secreta para assinar o token JWT
+  expiration:
+    minutes: ${JWT_EXPIRATION_MS:5} # Tempo de expiração do token JWT em minutos
