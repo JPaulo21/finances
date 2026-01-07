@@ -3,6 +3,7 @@ package com.jp.finances.web.controller;
 import com.jp.finances.domain.user.UserService;
 import com.jp.finances.web.docs.UserDocs;
 import com.jp.finances.web.dto.request.UserRequestDTO;
+import com.jp.finances.web.dto.response.TokenResponseDTO;
 import com.jp.finances.web.mapper.UserMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -40,5 +41,10 @@ public class UserController implements UserDocs {
                 .encode(StandardCharsets.UTF_8)
                 .toUri();
         return ResponseEntity.created(location).build();
+    }
+
+    @Override
+    public ResponseEntity<TokenResponseDTO> refreshToken(TokenResponseDTO refreshTokenRequest) {
+        return null;
     }
 }
