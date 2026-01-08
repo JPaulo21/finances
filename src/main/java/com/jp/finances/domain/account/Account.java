@@ -4,10 +4,9 @@ import com.jp.finances.domain.account.enums.AccountType;
 import com.jp.finances.domain.user.User;
 import com.jp.finances.infra.audit.Auditable;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.dialect.type.PostgreSQLEnumJdbcType;
 
 import java.math.BigDecimal;
 
@@ -16,10 +15,12 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Builder
 public class Account extends Auditable {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     @Column(nullable = false)
     private Long id;
 
@@ -27,6 +28,7 @@ public class Account extends Auditable {
     private String name;
 
     @Enumerated(EnumType.STRING)
+    @JdbcType(value = PostgreSQLEnumJdbcType.class)
     @Column(nullable = false)
     private AccountType type;
 

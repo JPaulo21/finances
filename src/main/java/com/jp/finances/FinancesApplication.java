@@ -4,12 +4,16 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.core.env.Environment;
+import org.springframework.data.web.config.EnableSpringDataWebSupport;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+import static org.springframework.data.web.config.EnableSpringDataWebSupport.PageSerializationMode.VIA_DTO;
+
 @SpringBootApplication
 @Slf4j
+@EnableSpringDataWebSupport(pageSerializationMode = VIA_DTO)
 public class FinancesApplication {
 
 	public static void main(String[] args) throws UnknownHostException {
