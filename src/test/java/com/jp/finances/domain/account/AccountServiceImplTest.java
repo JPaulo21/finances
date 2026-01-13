@@ -1,8 +1,6 @@
-package com.jp.finances.domain;
+package com.jp.finances.domain.account;
 
 import com.jp.finances.commom.FakerUtils;
-import com.jp.finances.domain.account.Account;
-import com.jp.finances.domain.account.AccountRepository;
 import com.jp.finances.domain.account.enums.AccountType;
 import com.jp.finances.domain.account.impl.AccountServiceImpl;
 import com.jp.finances.domain.user.User;

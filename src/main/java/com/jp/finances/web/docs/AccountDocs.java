@@ -1,6 +1,7 @@
 package com.jp.finances.web.docs;
 
 import com.jp.finances.domain.user.User;
+import com.jp.finances.web.controller.AccountUpdatedRequest;
 import com.jp.finances.web.dto.request.AccountCreateRequest;
 import com.jp.finances.web.dto.request.AccountRequestFilter;
 import com.jp.finances.web.dto.response.AccountResponse;
@@ -15,6 +16,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -44,4 +47,20 @@ public interface AccountDocs {
     ResponseEntity<Page<AccountResponse>> getAccounts(User user,
                                                       AccountRequestFilter filter,
                                                       Pageable pageable);
+
+    @Operation(description = "Partially update an existing account for the authenticated user")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Account updated successfully"),
+            @ApiResponse(responseCode = "400", description = "Invalid request data"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized access",
+                    content = @Content(mediaType = APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ProblemDetail.class))),
+            @ApiResponse(responseCode = "403", description = "Forbidden access",
+                    content = @Content(mediaType = APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ProblemDetail.class))),
+            @ApiResponse(responseCode = "404", description = "Account not found",
+                    content = @Content(mediaType = APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ProblemDetail.class)))
+    })
+    ResponseEntity<Void> partialUpdateAccount(User user, Long accountId, AccountUpdatedRequest accountUpdatedRequest);
 }

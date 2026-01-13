@@ -66,4 +66,15 @@ public class AccountController implements AccountDocs {
         return ResponseEntity.ok(accounts);
     }
 
+    @PatchMapping("/{accountId}")
+    @PreAuthorize("hasRole(USER) AND #id == authentication.principal.id")
+    public ResponseEntity<Void> partialUpdateAccount(@AuthenticationPrincipal User user,
+                                                     @PathVariable Long accountId,
+                                                     @RequestBody AccountUpdatedRequest accountUpdatedRequest){
+        log.info("REQUEST_START | action=UPDATE_ACCOUNT | userId={}", user.getId());
+        accountService.updateAccount(accountId, accountUpdatedRequest);
+        log.info("REQUEST_END | action=UPDATE_ACCOUNT | userId={}", user.getId());
+        return ResponseEntity.noContent().build();
+    }
+
 }
