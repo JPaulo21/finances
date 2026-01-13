@@ -5,6 +5,7 @@ import com.jp.finances.domain.authentication.RefreshTokenRepository;
 import com.jp.finances.domain.user.User;
 import com.jp.finances.domain.user.UserRepository;
 import com.jp.finances.domain.user.UserService;
+import com.jp.finances.domain.user.UserValidator;
 import com.jp.finances.domain.user.enums.Role;
 import com.jp.finances.domain.user.enums.Status;
 import com.jp.finances.infra.exception.BusinessException;
@@ -27,6 +28,7 @@ import java.util.UUID;
 public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final UserRepository userRepository;
+    private final UserValidator userValidator;
     private final RefreshTokenRepository refreshTokenRepository;
     private final PasswordEncoder passwordEncoder;
 
@@ -45,6 +47,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setStatus(Status.ACTIVE);
         user.setRole(Role.USER);
+
+        userValidator.validateEmailExists(user.getEmail());
+
         userRepository.save(user);
         log.info("User created with id: {}", user.getId());
         return user;
